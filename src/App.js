@@ -1,3 +1,7 @@
+import React from "react";
+import CreateCard from "./components/CreateCard";
+import houseToRent from "./houseToRent";
+
 function App() {
 	return (
 		<div>
@@ -28,31 +32,9 @@ function App() {
 				</div>
 				<div>
 					<div className="cards">
-						{/* <!-- CARD EXAMPLE --> */}
-						<div className="card">
-							<div className="card-header">
-								<div
-									className="card-img"
-									style={{
-										backgroundImage: `url(
-											"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwaG91c2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-										)`,
-									}}
-								></div>
-							</div>
-							<div className="card-body">
-								<h2 className="card-title">Sample Card</h2>
-								<p className="card-description">
-									This is just a sample card, take the
-									structure of this card as an example for the
-									function createCard
-								</p>
-								<button className="card-button">
-									I want it!
-								</button>
-							</div>
-						</div>
-						{/* <!-- CARD EXAMPLE --> */}
+						{houseToRent.map((house, id) => (
+							<CreateCard key={id} data={house} />
+						))}
 					</div>
 				</div>
 			</div>

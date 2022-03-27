@@ -13,6 +13,13 @@ function App() {
 		}
 	};
 
+	const handleChange = (e) => {
+		const search = e.target.value.toLowerCase();
+		setHouses(
+			houses.filter((house) => house.name.toLowerCase().includes(search))
+		);
+	};
+
 	return (
 		<div>
 			<header>
@@ -24,6 +31,7 @@ function App() {
 						type="text"
 						className="search-input"
 						placeholder="🔎 Type to search"
+						onChange={handleChange}
 					/>
 					<select className="select" name="home">
 						<option value="All">All</option>

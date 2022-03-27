@@ -15,11 +15,18 @@ function App() {
 
 	const handleChange = (e) => {
 		const search = e.target.value.toLowerCase();
+		console.log(search);
 		setHouses(
-			houses.filter((house) => house.name.toLowerCase().includes(search))
+			houseToRent.filter((house) =>
+				house.name.toLowerCase().includes(search)
+			)
 		);
+		if (search === "") {
+			setHouses(houseToRent);
+		}
 	};
 
+	console.log(houses);
 	return (
 		<div>
 			<header>

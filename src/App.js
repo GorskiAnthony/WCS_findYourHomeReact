@@ -13,6 +13,16 @@ function App() {
 		}
 	};
 
+	const handleSelect = (e) => {
+		if (e.target.value === "House") {
+			setHouses(houseToRent.filter((house) => house.type === "House"));
+		} else if (e.target.value === "Flat") {
+			setHouses(houseToRent.filter((house) => house.type === "Flat"));
+		} else {
+			setHouses(houseToRent);
+		}
+	};
+
 	const handleChange = (e) => {
 		const search = e.target.value.toLowerCase();
 		console.log(search);
@@ -40,7 +50,11 @@ function App() {
 						placeholder="🔎 Type to search"
 						onChange={handleChange}
 					/>
-					<select className="select" name="home">
+					<select
+						className="select"
+						name="home"
+						onChange={handleSelect}
+					>
 						<option value="All">All</option>
 						<option value="Flat">Flat</option>
 						<option value="House">House</option>

@@ -1,4 +1,47 @@
+import React, { useState } from "react";
+import CreateCard from "./CreateCard";
+import houseToRent from "./houseToRent";
+
 function App() {
+	// Je vais initialiser un state de mon app
+	const [houses, setHouses] = useState(houseToRent);
+
+	const handleSelect = (event) => {
+		if (event.target.value === "Flat") {
+			setHouses(houseToRent.filter((house) => house.type === "Flat"));
+		} else if (event.target.value === "House") {
+			setHouses(houseToRent.filter((house) => house.type === "House"));
+		} else {
+			setHouses(houseToRent);
+		}
+	};
+
+	const handleText = (event) => {
+		// créer une variable search qui prendra le texte du user et le transforme en minuscule
+		const search = event.target.value.toLowerCase();
+		// mettre à jour le state (houses) avec un filtre qui inclut
+		// mon search
+		setHouses(
+			houseToRent.filter((house) =>
+				house.name.toLowerCase().includes(search)
+			)
+		);
+		// Si pas de texte alors renvoi toutes mes maisons
+		// Cette ecriture {if (!search)}
+		// est la même que celle là { if (search === "")}
+		if (search === "") {
+			setHouses(houseToRent);
+		}
+	};
+
+	const handleClick = (event) => {
+		if (event.target.checked) {
+			setHouses(houses.filter((house) => house.available));
+		} else {
+			setHouses(houseToRent);
+		}
+	};
+
 	return (
 		<div>
 			<header>
@@ -10,8 +53,13 @@ function App() {
 						type="text"
 						className="search-input"
 						placeholder="🔎 Type to search"
+						onKeyUp={handleText}
 					/>
-					<select className="select" name="home">
+					<select
+						className="select"
+						name="home"
+						onChange={handleSelect}
+					>
 						<option value="All">All</option>
 						<option value="Flat">Flat</option>
 						<option value="House">House</option>
@@ -23,36 +71,15 @@ function App() {
 							className="available-checkbox"
 							name="checkbox"
 							id=""
+							onClick={handleClick}
 						/>
 					</div>
 				</div>
 				<div>
 					<div className="cards">
-						{/* <!-- CARD EXAMPLE --> */}
-						<div className="card">
-							<div className="card-header">
-								<div
-									className="card-img"
-									style={{
-										backgroundImage: `url(
-											"https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwaG91c2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-										)`,
-									}}
-								></div>
-							</div>
-							<div className="card-body">
-								<h2 className="card-title">Sample Card</h2>
-								<p className="card-description">
-									This is just a sample card, take the
-									structure of this card as an example for the
-									function createCard
-								</p>
-								<button className="card-button">
-									I want it!
-								</button>
-							</div>
-						</div>
-						{/* <!-- CARD EXAMPLE --> */}
+						{houses.map((house, key) => {
+							return <CreateCard key={key} {...house} />;
+						})}
 					</div>
 				</div>
 			</div>
